@@ -9,17 +9,19 @@ public class Comment {
 	protected int listid;
 	protected Date date;
 	protected String text;
+	protected List listOfComment;
 	
 	public Comment() {
-		this(-1,-1,-1, Date.valueOf(LocalDate.now()), "");
+		this(-1,-1,-1, Date.valueOf(LocalDate.now()), "", new List());
 	}
 	
-	public Comment(int id, int userid, int listid, Date date, String text) {
+	public Comment(int id, int userid, int listid, Date date, String text, List listOfComment) {
 		this.id = id;
 		this.userid = userid;
 		this.listid = listid;
 		this.date = date;
 		this.text = text;
+		this.listOfComment = listOfComment;
 	}
 
 	public Comment(int userid, int listid, Date date, String text) {
@@ -98,6 +100,14 @@ public class Comment {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public List getListOfComment() {
+		return listOfComment;
+	}
+
+	public void setListOfComment(List listOfComment) {
+		this.listOfComment = listOfComment;
 	}
 
 	@Override

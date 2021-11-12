@@ -70,7 +70,7 @@ public class CommentDAO extends Comment implements IComment {
 	}
 
 	@Override
-	public Comment getCommentById(int id) {
+	public Comment getCommentById(int commentid) {
 		Comment comment = null;
 
 		con = DBConection.getConection();
@@ -80,12 +80,13 @@ public class CommentDAO extends Comment implements IComment {
 			try {
 				ps = con.prepareStatement(GETCOMMENTBYID);
 
-				ps.setInt(1, id);
+				ps.setInt(1, commentid);
 
 				rs = ps.executeQuery();
 
 				if (rs.next()) {
-					comment = new Comment(rs.getInt("id"), rs.getInt("userid"), rs.getInt("listid"), rs.getDate("date"), rs.getString("text"));
+					comment = new Comment(rs.getInt("id"), rs.getInt("userid"), rs.getInt("listid"), rs.getDate("date"), rs.getString("text"),
+							new ListDAO().getListById(rs.getInt("listid")));
 				}
 
 				ps.close();
@@ -116,7 +117,8 @@ public class CommentDAO extends Comment implements IComment {
 				rs = ps.executeQuery();
 
 				while (rs.next()) {
-					Comment a=new Comment(rs.getInt("id"), rs.getInt("userid"), rs.getInt("listid"), rs.getDate("date"), rs.getString("text"));
+					Comment a=new Comment(rs.getInt("id"), rs.getInt("userid"), rs.getInt("listid"), rs.getDate("date"), rs.getString("text"),
+							new ListDAO().getListById(rs.getInt("listid")));
 					resultado.add(a);
 				}
 				
@@ -147,7 +149,8 @@ public class CommentDAO extends Comment implements IComment {
 				rs = ps.executeQuery();
 
 				while (rs.next()) {
-					Comment a=new Comment(rs.getInt("id"), rs.getInt("userid"), rs.getInt("listid"), rs.getDate("date"), rs.getString("text"));
+					Comment a=new Comment(rs.getInt("id"), rs.getInt("userid"), rs.getInt("listid"), rs.getDate("date"), rs.getString("text"),
+							new ListDAO().getListById(rs.getInt("listid")));
 					resultado.add(a);
 				}
 				

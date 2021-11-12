@@ -1,20 +1,29 @@
 package model;
 
+import java.util.ArrayList;
+
 public class User {
 	protected int id;
 	protected String name;
 	protected String photo;
 	protected String mail;
+	protected java.util.List<List> userCreatedLists;
+	protected java.util.List<Subscription> userListsSubscriptions;
+	protected java.util.List<Comment> userComments;
 	
 	public User() {
-		this(-1,"","","");
+		this(-1,"","","", new ArrayList<List>(), new ArrayList<Subscription>(), new ArrayList<Comment>());
 	}
 	
-	public User(int id, String name, String photo, String mail) {
+	public User(int id, String name, String photo, String mail, java.util.List<List> userCreatedLists, 
+			java.util.List<Subscription> userListsSubscriptions, java.util.List<Comment> userComments) {
 		this.id = id;
 		this.name = name;
 		this.photo = photo;
 		this.mail = mail;
+		this.userCreatedLists = userCreatedLists;
+		this.userListsSubscriptions = userListsSubscriptions;
+		this.userComments = userComments;
 	}
 
 	public User(String name, String photo, String mail) {
@@ -61,6 +70,30 @@ public class User {
 
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+
+	public java.util.List<List> getUserCreatedLists() {
+		return userCreatedLists;
+	}
+
+	public void setUserCreatedLists(java.util.List<List> userCreatedLists) {
+		this.userCreatedLists = userCreatedLists;
+	}
+
+	public java.util.List<Subscription> getUserListsSubscriptions() {
+		return userListsSubscriptions;
+	}
+
+	public void setUserListsSubscriptions(java.util.List<Subscription> userListsSubscriptions) {
+		this.userListsSubscriptions = userListsSubscriptions;
+	}
+
+	public java.util.List<Comment> getUserComments() {
+		return userComments;
+	}
+
+	public void setUserComments(java.util.List<Comment> userComments) {
+		this.userComments = userComments;
 	}
 
 	@Override

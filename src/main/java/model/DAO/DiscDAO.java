@@ -15,6 +15,7 @@ import utils.DBConection;
 public class DiscDAO extends Disc implements IDisc {
 
 	private static final String GETALLDISCS = "SELECT * FROM disc";
+	private static final String GETDISCSBYARTIST = "SELECT * FROM disc WHERE artistid=?";
 	private static final String INSERTDISC = "INSERT INTO disc (artistid, name, publish_date, photo, n_reproductions) VALUES (?,?,?,?,?)";
 	private static final String GETDISCBYID = "SELECT * FROM disc WHERE id=?";
 	private static final String UPDATEDISCBYID = "UPDATE disc SET artistid=?, name=?, publish_date=?, photo=?, n_reproductions=? WHERE id=?";
@@ -84,7 +85,8 @@ public class DiscDAO extends Disc implements IDisc {
 
 				while (rs.next()) {
 					Disc d = new Disc(rs.getInt("id"), rs.getInt("artistid"), rs.getString("name"),
-							rs.getInt("publish_date"), rs.getString("photo"), rs.getInt("n_reproductions"));
+							rs.getInt("publish_date"), rs.getString("photo"), rs.getInt("n_reproductions"),
+							new SongDAO().getSongsByDisc(rs.getInt("id")));
 					resultado.add(d);
 				}
 
@@ -100,7 +102,7 @@ public class DiscDAO extends Disc implements IDisc {
 	}
 
 	@Override
-	public Disc getDiscById(int id) {
+	public Disc getDiscById(int discid) {
 		Disc disc = null;
 
 		con = DBConection.getConection();
@@ -110,13 +112,14 @@ public class DiscDAO extends Disc implements IDisc {
 			try {
 				ps = con.prepareStatement(GETDISCBYID);
 
-				ps.setInt(1, id);
+				ps.setInt(1, discid);
 
 				rs = ps.executeQuery();
 
 				if (rs.next()) {
 					disc = new Disc(rs.getInt("id"), rs.getInt("artistid"), rs.getString("name"),
-							rs.getInt("publish_date"), rs.getString("photo"), rs.getInt("n_reproductions"));
+							rs.getInt("publish_date"), rs.getString("photo"), rs.getInt("n_reproductions"),
+							new SongDAO().getSongsByDisc(rs.getInt("id")));
 				}
 
 				ps.close();
@@ -131,6 +134,39 @@ public class DiscDAO extends Disc implements IDisc {
 		return disc;
 	}
 
+	@Override
+	public List<Disc> getDiscsByArtist(int artistid) {
+		List<Disc> resultado = new ArrayList<Disc>();
+
+		con = DBConection.getConection();
+		if (con != null) {
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try {
+				ps = con.prepareStatement(GETDISCSBYARTIST);
+				
+				ps.setInt(1, artistid);
+				
+				rs = ps.executeQuery();
+
+				while (rs.next()) {
+					Disc d = new Disc(rs.getInt("id"), rs.getInt("artistid"), rs.getString("name"),
+							rs.getInt("publish_date"), rs.getString("photo"), rs.getInt("n_reproductions"), 
+							new SongDAO().getSongsByDisc(rs.getInt("id")));
+					resultado.add(d);
+				}
+
+				ps.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return resultado;
+	}
+	
 	@Override
 	public boolean updateDisc() {
 		con = DBConection.getConection();

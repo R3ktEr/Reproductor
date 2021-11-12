@@ -16,6 +16,7 @@ public class ListDAO extends List implements IList {
 	private static final String GETALLLISTS = "SELECT * FROM list";
 	private static final String INSERTLIST = "INSERT INTO list (userid, name, description, n_subscribers) VALUES (?,?,?,?)";
 	private static final String GETLISTBYID = "SELECT * FROM list WHERE id=?";
+	private static final String GETLISTSBYUSER = "SELECT * FROM list WHERE userid=?";
 	private static final String UPDATELISTBYID = "UPDATE list SET userid=?, name=?, description=?, n_subscribers=? WHERE id=?";
 	private static final String DELETELISTBYID = "DELETE FROM list WHERE id=?";
 
@@ -82,7 +83,7 @@ public class ListDAO extends List implements IList {
 
 				while (rs.next()) {
 					List l = new List(rs.getInt("id"), rs.getInt("userid"), rs.getString("name"),
-							rs.getString("description"), rs.getInt("n_subscribers"));
+							rs.getString("description"), rs.getInt("n_subscribers"), new Songs_ListDAO().getSongsFromList(rs.getInt("id")));
 					resultado.add(l);
 				}
 
@@ -98,7 +99,7 @@ public class ListDAO extends List implements IList {
 	}
 
 	@Override
-	public List getListById(int id) {
+	public List getListById(int listid) {
 		List list = null;
 
 		con = DBConection.getConection();
@@ -108,13 +109,13 @@ public class ListDAO extends List implements IList {
 			try {
 				ps = con.prepareStatement(GETLISTBYID);
 
-				ps.setInt(1, id);
+				ps.setInt(1, listid);
 
 				rs = ps.executeQuery();
 
 				if (rs.next()) {
 					list = new List(rs.getInt("id"), rs.getInt("userid"), rs.getString("name"),
-							rs.getString("description"), rs.getInt("n_subscribers"));
+							rs.getString("description"), rs.getInt("n_subscribers"), new Songs_ListDAO().getSongsFromList(rs.getInt("id")));
 				}
 
 				ps.close();
@@ -127,6 +128,38 @@ public class ListDAO extends List implements IList {
 		}
 
 		return list;
+	}
+	
+	@Override
+	public java.util.List<List> getListsByUser(int userid) {
+		java.util.List<List> resultado = new ArrayList<List>();
+
+		con = DBConection.getConection();
+		if (con != null) {
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try {
+				ps = con.prepareStatement(GETLISTSBYUSER);
+				
+				ps.setInt(1, userid);
+				
+				rs = ps.executeQuery();
+
+				while (rs.next()) {
+					List l = new List(rs.getInt("id"), rs.getInt("userid"), rs.getString("name"),
+							rs.getString("description"), rs.getInt("n_subscribers"), new Songs_ListDAO().getSongsFromList(rs.getInt("id")));
+					resultado.add(l);
+				}
+
+				ps.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return resultado;
 	}
 
 	@Override

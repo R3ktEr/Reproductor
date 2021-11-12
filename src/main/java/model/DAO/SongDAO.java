@@ -17,6 +17,8 @@ public class SongDAO extends Song implements ISong {
 	private static final String GETALLSONGS = "SELECT * FROM song";
 	private static final String INSERTSONG = "INSERT INTO song (discid, genreid, name, duration) VALUES (?,?,?,?)";
 	private static final String GETSONGBYID = "SELECT * FROM song WHERE id=?";
+	private static final String GETSONGSBYDISC = "SELECT * FROM song WHERE discid=?";
+	private static final String GETSONGSBYGENRE = "SELECT * FROM song WHERE genreid=?";
 	private static final String UPDATESONGBYID = "UPDATE song SET discid=?, genreid=?, name=?, duration=? WHERE id=?";
 	private static final String DELETESONGBYID = "DELETE FROM song WHERE id=?";
 
@@ -99,7 +101,7 @@ public class SongDAO extends Song implements ISong {
 	}
 
 	@Override
-	public Song getSongById(int id) {
+	public Song getSongById(int songid) {
 		Song song = null;
 
 		con = DBConection.getConection();
@@ -109,7 +111,7 @@ public class SongDAO extends Song implements ISong {
 			try {
 				ps = con.prepareStatement(GETSONGBYID);
 
-				ps.setInt(1, id);
+				ps.setInt(1, songid);
 
 				rs = ps.executeQuery();
 
@@ -128,6 +130,69 @@ public class SongDAO extends Song implements ISong {
 		}
 
 		return song;
+	}
+	
+	@Override
+	public List<Song> getSongsByDisc(int discid) {
+		List<Song> resultado = new ArrayList<Song>();
+
+		con = DBConection.getConection();
+		if (con != null) {
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try {
+				ps = con.prepareStatement(GETSONGSBYDISC);
+				
+				ps.setInt(1, discid);
+				
+				rs = ps.executeQuery();
+
+				while (rs.next()) {
+					Song s = new Song(rs.getInt("id"), rs.getInt("discid"), rs.getInt("genreid"), rs.getString("name"),
+							rs.getInt("duration"));
+					resultado.add(s);
+				}
+
+				ps.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return resultado;
+	}
+	
+	public List<Song> getSongsByGenre(int genreid) {
+		List<Song> resultado = new ArrayList<Song>();
+
+		con = DBConection.getConection();
+		if (con != null) {
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			try {
+				ps = con.prepareStatement(GETSONGSBYGENRE);
+				
+				ps.setInt(1, genreid);
+				
+				rs = ps.executeQuery();
+
+				while (rs.next()) {
+					Song s = new Song(rs.getInt("id"), rs.getInt("discid"), rs.getInt("genreid"), rs.getString("name"),
+							rs.getInt("duration"));
+					resultado.add(s);
+				}
+
+				ps.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		return resultado;
 	}
 
 	@Override

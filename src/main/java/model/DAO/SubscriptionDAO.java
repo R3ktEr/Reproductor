@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import model.List;
 import model.Subscription;
 import model.intefaces.ISubscription;
 import utils.DBConection;
@@ -15,7 +14,7 @@ import utils.DBConection;
 public class SubscriptionDAO extends Subscription implements ISubscription{
 	
 	private static final String GETALLSUBSCRIPTIONS = "SELECT * FROM subcription";
-	private static final String GETSUBCRIPTIONSBYUSER = "SELECT listid FROM subscription WHERE userid=?";
+	private static final String GETSUBCRIPTIONSBYUSER = "SELECT * FROM subscription WHERE userid=?";
 	private static final String INSERTSUBSCRIPTION = "INSERT INTO subscription (userid, listid) VALUES (?,?)";
 	private static final String DELETESUBSCRIPTION = "DELETE FROM subscription WHERE id=?";
 
@@ -84,7 +83,8 @@ public class SubscriptionDAO extends Subscription implements ISubscription{
 				rs = ps.executeQuery();
 
 				while (rs.next()) {
-					Subscription s=new Subscription(rs.getInt("id"), rs.getInt("userid"), rs.getInt("listid"));
+					Subscription s=new Subscription(rs.getInt("id"), rs.getInt("userid"), rs.getInt("listid"), 
+							new ListDAO().getListById(rs.getInt("listid")));
 					subscriptions.add(s);
 				}
 				
@@ -100,9 +100,8 @@ public class SubscriptionDAO extends Subscription implements ISubscription{
 	}
 
 	@Override
-	public java.util.List<List> getSubscriptionsByUser(int userid) {
-		List list = new List();
-		java.util.List<List> userLists = new ArrayList<List>();
+	public java.util.List<Subscription> getSubscriptionsByUser(int userid) {
+		java.util.List<Subscription> userSubscriptions = new ArrayList<Subscription>();
 
 		con = DBConection.getConection();
 		if (con != null) {
@@ -116,8 +115,9 @@ public class SubscriptionDAO extends Subscription implements ISubscription{
 				rs = ps.executeQuery();
 
 				while (rs.next()) {
-					list=new ListDAO().getListById(rs.getInt("listid"));
-					userLists.add(list);
+					Subscription s = new Subscription(rs.getInt("id"), rs.getInt("userid"), rs.getInt("listid"), 
+							new ListDAO().getListById(rs.getInt("listid")));
+					userSubscriptions.add(s);
 				}
 				
 				ps.close();
@@ -128,7 +128,7 @@ public class SubscriptionDAO extends Subscription implements ISubscription{
 			}
 		}
 		
-		return userLists;
+		return userSubscriptions;
 	}
 
 	@Override

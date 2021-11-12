@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Disc {
 	protected int id;
 	protected int artistid;
@@ -7,18 +9,20 @@ public class Disc {
 	protected int publish_date;
 	protected String photo;
 	protected int n_reproductions;
+	protected java.util.List<Song> discSongs;
 	
 	public Disc() {
-		this(-1,-1,"",-1,"",-1);
+		this(-1,-1,"",-1,"",-1, new ArrayList<Song>());
 	}
 
-	public Disc(int id, int artistid, String name, int publish_date, String photo, int n_reproductions) {
+	public Disc(int id, int artistid, String name, int publish_date, String photo, int n_reproductions, java.util.List<Song> discSongs) {
 		this.id = id;
 		this.artistid = artistid;
 		this.name = name;
 		this.publish_date = publish_date;
 		this.photo = photo;
 		this.n_reproductions = n_reproductions;
+		this.discSongs = discSongs;
 	}
 	
 	public Disc(int artistid, String name, int publish_date, String photo, int n_reproductions) {
@@ -107,6 +111,14 @@ public class Disc {
 
 	public void setN_reproductions(int n_reproductions) {
 		this.n_reproductions = n_reproductions;
+	}
+
+	public java.util.List<Song> getDiscSongs() {
+		return discSongs;
+	}
+
+	public void setDiscSongs(java.util.List<Song> discSongs) {
+		this.discSongs = discSongs;
 	}
 
 	@Override

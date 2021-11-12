@@ -82,7 +82,8 @@ public class ArtistDAO extends Artist implements IArtist {
 				rs = ps.executeQuery();
 
 				while (rs.next()) {
-					Artist a=new Artist(rs.getInt("id"), rs.getString("name"), rs.getString("nationality"), rs.getString("photo"));
+					Artist a=new Artist(rs.getInt("id"), rs.getString("name"), rs.getString("nationality"), rs.getString("photo"),
+							new DiscDAO().getDiscsByArtist(rs.getInt("id")));
 					resultado.add(a);
 				}
 				
@@ -98,7 +99,7 @@ public class ArtistDAO extends Artist implements IArtist {
 	}
 
 	@Override
-	public Artist getArtistById(int id) {
+	public Artist getArtistById(int artistid) {
 		Artist artist=null;
 		
 		con = DBConection.getConection();
@@ -108,12 +109,13 @@ public class ArtistDAO extends Artist implements IArtist {
 			try {
 				ps = con.prepareStatement(GETARTISTBYID);
 				
-				ps.setInt(1, id);
+				ps.setInt(1, artistid);
 				
 				rs = ps.executeQuery();
 				
 				if(rs.next()) {
-					artist=new Artist(rs.getInt("id"), rs.getString("name"), rs.getString("nationality"), rs.getString("photo"));					
+					artist=new Artist(rs.getInt("id"), rs.getString("name"), rs.getString("nationality"), rs.getString("photo"),
+							new DiscDAO().getDiscsByArtist(rs.getInt("id")));					
 				}
 				
 				ps.close();

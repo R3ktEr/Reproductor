@@ -1,16 +1,20 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Genre {
 	protected int id;
 	protected String name;
+	protected java.util.List<Song> songsOfGenre;
 	
 	public Genre() {
-		this(-1,"");
+		this(-1,"", new ArrayList<Song>());
 	}
 	
-	public Genre(int id, String name) {
+	public Genre(int id, String name, java.util.List<Song> songsOfGenre) {
 		this.id = id;
 		this.name = name;
+		this.songsOfGenre = songsOfGenre;
 	}
 
 	public Genre(String name) {
@@ -59,6 +63,14 @@ public class Genre {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public java.util.List<Song> getSongsOfGenre() {
+		return songsOfGenre;
+	}
+
+	public void setSongsOfGenre(java.util.List<Song> songsOfGenre) {
+		this.songsOfGenre = songsOfGenre;
 	}
 
 	@Override

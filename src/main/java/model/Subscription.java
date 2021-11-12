@@ -4,15 +4,17 @@ public class Subscription {
 	protected int id;
 	protected int userid;
 	protected int listid;
+	protected List list;
 	
 	public Subscription() {
-		this(-1,-1,-1);
+		this(-1,-1,-1, new List());
 	}
 	
-	public Subscription(int id, int userid, int listid) {
+	public Subscription(int id, int userid, int listid, List list) {
 		this.id = id;
 		this.userid = userid;
 		this.listid = listid;
+		this.list = list;
 	}
 
 	public Subscription(int userid, int listid) {
@@ -71,6 +73,14 @@ public class Subscription {
 
 	public void setListid(int listid) {
 		this.listid = listid;
+	}
+
+	public List getList() {
+		return list;
+	}
+
+	public void setList(List list) {
+		this.list = list;
 	}
 
 	@Override

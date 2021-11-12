@@ -69,7 +69,7 @@ public class UserDAO extends User implements IUser {
 	}
 
 	@Override
-	public User getUserById(int id) {
+	public User getUserById(int userid) {
 		User user = null;
 
 		con = DBConection.getConection();
@@ -79,13 +79,14 @@ public class UserDAO extends User implements IUser {
 			try {
 				ps = con.prepareStatement(GETUSERBYID);
 
-				ps.setInt(1, id);
+				ps.setInt(1, userid);
 
 				rs = ps.executeQuery();
 
 				if (rs.next()) {
-					user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("photo"),
-							rs.getString("mail"));
+					user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("photo"), rs.getString("mail"),
+							new ListDAO().getListsByUser(rs.getInt("id")), new SubscriptionDAO().getSubscriptionsByUser(rs.getInt("id")),
+							new CommentDAO().getAllUserComments(rs.getInt("id")));
 				}
 
 				ps.close();
@@ -113,7 +114,9 @@ public class UserDAO extends User implements IUser {
 				rs = ps.executeQuery();
 
 				while (rs.next()) {
-					User u=new User(rs.getInt("id"), rs.getString("name"), rs.getString("photo"), rs.getString("mail"));
+					User u=new User(rs.getInt("id"), rs.getString("name"), rs.getString("photo"), rs.getString("mail"),
+							new ListDAO().getListsByUser(rs.getInt("id")), new SubscriptionDAO().getSubscriptionsByUser(rs.getInt("id")),
+							new CommentDAO().getAllUserComments(rs.getInt("id")));
 					usersList.add(u);
 				}
 				
@@ -175,5 +178,4 @@ public class UserDAO extends User implements IUser {
 		
 		return false;
 	}
-
 }

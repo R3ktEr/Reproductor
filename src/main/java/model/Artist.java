@@ -1,20 +1,24 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Artist {
 	protected int id;
 	protected String name;
 	protected String nationality;
 	protected String photo;
+	protected java.util.List<Disc> artistDiscs;
 
 	public Artist() {
-		this(-1,"","","");
+		this(-1,"","","", new ArrayList<Disc>());
 	}
 
-	public Artist(int id, String name, String nationality, String photo) {
+	public Artist(int id, String name, String nationality, String photo, java.util.List<Disc> artistDiscs) {
 		this.id = id;
 		this.name = name;
 		this.nationality = nationality;
 		this.photo = photo;
+		this.artistDiscs = artistDiscs;
 	}
 	
 	public Artist(String name, String nationality, String photo) {
@@ -83,6 +87,14 @@ public class Artist {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+
+	public java.util.List<Disc> getArtistDiscs() {
+		return artistDiscs;
+	}
+
+	public void setArtistDiscs(java.util.List<Disc> artistDiscs) {
+		this.artistDiscs = artistDiscs;
 	}
 
 	@Override

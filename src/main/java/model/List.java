@@ -1,22 +1,26 @@
 package model;
 
+import java.util.ArrayList;
+
 public class List {
 	protected int id;
 	protected int userid;
 	protected String name;
 	protected String description;
 	protected int n_subscribers;
+	protected java.util.List<Song> listSongs;
 	
 	public List() {
-		this(-1,-1,"","",-1);
+		this(-1,-1,"","",-1, new ArrayList<Song>());
 	}
 	
-	public List(int id, int userid, String name, String description, int n_subscribers) {
+	public List(int id, int userid, String name, String description, int n_subscribers, java.util.List<Song> listSongs) {
 		this.id = id;
 		this.userid = userid;
 		this.name = name;
 		this.description = description;
 		this.n_subscribers = n_subscribers;
+		this.listSongs = listSongs;
 	}
 
 	public List(int userid, String name, String description, int n_subscribers) {
@@ -95,6 +99,14 @@ public class List {
 
 	public void setN_subscribers(int n_subscribers) {
 		this.n_subscribers = n_subscribers;
+	}
+
+	public java.util.List<Song> getListSongs() {
+		return listSongs;
+	}
+
+	public void setListSongs(java.util.List<Song> listSongs) {
+		this.listSongs = listSongs;
 	}
 
 	@Override

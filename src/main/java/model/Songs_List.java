@@ -15,10 +15,16 @@ public class Songs_List {
 		this.listid = listid;
 	}
 
-	public Songs_List(int songid, int listid) {
+	public Songs_List(Song song, List list) {
 		this.id=-1;
-		this.songid = songid;
-		this.listid = listid;
+		this.songid = song.id;
+		this.listid = list.id;
+	}
+	
+	public Songs_List(List list) {
+		this.id=-1;
+		this.songid = -1;
+		this.listid = list.id;
 	}
 	
 	public Songs_List(Songs_List sl) {

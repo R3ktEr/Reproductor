@@ -1,16 +1,135 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PrimaryController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label text="Primary View" />
-      <Button fx:id="primaryButton" text="Switch to Secondary View" onAction="#switchToSecondary"/>
+      <TabPane layoutX="31.0" layoutY="55.0" prefHeight="200.0" prefWidth="802.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab closable="false" text="Canciones">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="409.0" prefWidth="648.0">
+                     <children>
+                        <TitledPane alignment="CENTER" animated="false" collapsible="false" layoutX="-39.0" layoutY="53.0" prefHeight="507.0" prefWidth="759.0" text="Canciones" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="490.0" prefWidth="511.0">
+                                 <children>
+                                    <TableView layoutX="143.0" layoutY="68.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
+                                      <columns>
+                                        <TableColumn prefWidth="187.99999392032623" text="Nombre" />
+                                        <TableColumn prefWidth="212.0" text="Autor" />
+                                          <TableColumn prefWidth="194.00003051757812" text="Disco" />
+                                          <TableColumn prefWidth="135.0" text="Genero" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                           <padding>
+                              <Insets left="200.0" />
+                           </padding>
+                        </TitledPane>
+                        <TitledPane alignment="CENTER" animated="false" collapsible="false" text="Buscar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label layoutX="29.0" layoutY="38.0" text="Nombre" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="21.0" />
+                                    <TextField layoutX="42.0" layoutY="26.0" prefHeight="25.0" prefWidth="110.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="18.0" />
+                                    <Label layoutX="15.0" layoutY="78.0" text="Artista" />
+                                    <TextField layoutX="75.0" layoutY="74.0" prefHeight="25.0" prefWidth="110.0" />
+                                    <Label layoutX="15.0" layoutY="123.0" text="Disco" />
+                                    <TextField layoutX="75.0" layoutY="119.0" prefHeight="25.0" prefWidth="110.0" />
+                                    <Label layoutX="15.0" layoutY="165.0" text="Genero" />
+                                    <TextField layoutX="75.0" layoutY="161.0" prefHeight="25.0" prefWidth="110.0" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </TitledPane>
+                        <AnchorPane layoutX="307.0" layoutY="353.0" prefHeight="100.0" prefWidth="531.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Label layoutX="45.0" layoutY="24.0" prefHeight="17.0" prefWidth="149.0" text="Nombre Cancion" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="21.0" />
+                              <Label layoutX="222.0" layoutY="21.0" prefHeight="17.0" prefWidth="107.0" text="Artista" AnchorPane.topAnchor="21.0" />
+                              <Label layoutX="435.0" layoutY="21.0" prefHeight="17.0" prefWidth="81.0" text="Disco" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="21.0" />
+                              <Button layoutX="42.0" layoutY="50.0" mnemonicParsing="false" text="Reproducir" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="42.0" />
+                           </children></AnchorPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab closable="false" text="Playlists">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TitledPane alignment="CENTER" animated="false" collapsible="false" layoutX="36.0" layoutY="59.0" text="Mis playlists" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </TitledPane>
+                        <TitledPane alignment="CENTER" animated="false" collapsible="false" layoutX="308.0" layoutY="71.0" text="Playlists de Usuarios" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView layoutX="74.0" layoutY="41.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="350.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
+                                      <columns>
+                                        <TableColumn prefWidth="154.99999392032623" text="Nombre" />
+                                        <TableColumn prefWidth="480.0000305175781" text="Descripcion" />
+                                          <TableColumn prefWidth="113.0" text="Subscriptores" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                           <padding>
+                              <Insets left="200.0" />
+                           </padding>
+                        </TitledPane>
+                        <TitledPane alignment="CENTER" animated="false" collapsible="false" layoutX="361.0" layoutY="338.0" text="Playlist" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="260.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="-10.0" AnchorPane.leftAnchor="-10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="-10.0">
+                                       <columns>
+                                          <TableColumn prefWidth="187.99999392032623" text="Nombre" />
+                                          <TableColumn prefWidth="212.0" text="Autor" />
+                                          <TableColumn prefWidth="203.00003051757812" text="Disco" />
+                                          <TableColumn prefWidth="145.0" text="Genero" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                           <padding>
+                              <Insets left="200.0" />
+                           </padding>
+                        </TitledPane>
+                        <AnchorPane prefHeight="100.0" prefWidth="531.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <Label layoutX="45.0" layoutY="24.0" prefHeight="17.0" prefWidth="149.0" text="Nombre Cancion" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="21.0" />
+                              <Label layoutX="222.0" layoutY="21.0" prefHeight="17.0" prefWidth="107.0" text="Artista" AnchorPane.topAnchor="21.0" />
+                              <Label layoutX="435.0" layoutY="21.0" prefHeight="17.0" prefWidth="81.0" text="Disco" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="21.0" />
+                              <Button layoutX="42.0" layoutY="50.0" mnemonicParsing="false" text="Reproducir" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="42.0" />
+                           </children>
+                        </AnchorPane>
+                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Crear Playlist" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="50.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+          <Tab closable="false" text="Canciones">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
    </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
-</VBox>
+</AnchorPane>
