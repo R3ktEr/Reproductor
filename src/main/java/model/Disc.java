@@ -123,7 +123,6 @@ public class Disc {
 
 	@Override
 	public String toString() {
-		return "Disc [id=" + id + ", artistid=" + artistid + ", name=" + name + ", publish_date=" + publish_date
-				+ ", photo=" + photo + ", n_reproductions=" + n_reproductions + "]";
+		return name;
 	}
 }

@@ -6,25 +6,28 @@ public class Song {
 	protected int genreid;
 	protected String name;
 	protected int duration;
+	protected int n_reproductions;
 	
 	public Song() {
-		this(-1,-1,-1,"",-1);
+		this(-1,-1,-1,"",-1,0);
 	}
 
-	public Song(int id, int discid, int genreid, String name, int duration) {
+	public Song(int id, int discid, int genreid, String name, int duration, int n_reproductions) {
 		this.id = id;
 		this.discid = discid;
 		this.genreid = genreid;
 		this.name = name;
 		this.duration = duration;
+		this.n_reproductions = n_reproductions;
 	}
 
-	public Song(int discid, int genreid, String name, int duration) {
+	public Song(int discid, int genreid, String name, int duration, int n_reproductions) {
 		this.id=-1;
 		this.discid = discid;
 		this.genreid = genreid;
 		this.name = name;
 		this.duration = duration;
+		this.n_reproductions = n_reproductions;
 	}
 	
 	public Song(Song s) {
@@ -33,6 +36,7 @@ public class Song {
 		this.genreid = s.genreid;
 		this.name = s.name;
 		this.duration = s.duration;
+		this.n_reproductions = s.n_reproductions;
 	}
 
 	@Override
@@ -97,9 +101,17 @@ public class Song {
 		this.duration = duration;
 	}
 
+	public int getN_reproductions() {
+		return n_reproductions;
+	}
+
+	public void setN_reproductions(int n_reproductions) {
+		this.n_reproductions = n_reproductions;
+	}
+
 	@Override
 	public String toString() {
 		return "Song [id=" + id + ", discid=" + discid + ", genreid=" + genreid + ", name=" + name + ", duration="
-				+ duration + "]";
+				+ duration + ", n_reproductions=" + n_reproductions + "]";
 	}
 }

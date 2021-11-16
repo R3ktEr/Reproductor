@@ -82,11 +82,13 @@ public class DiscDAO extends Disc implements IDisc {
 			try {
 				ps = con.prepareStatement(GETALLDISCS);
 				rs = ps.executeQuery();
+				
+				SongDAO sdao=new SongDAO();
 
 				while (rs.next()) {
 					Disc d = new Disc(rs.getInt("id"), rs.getInt("artistid"), rs.getString("name"),
 							rs.getInt("publish_date"), rs.getString("photo"), rs.getInt("n_reproductions"),
-							new SongDAO().getSongsByDisc(rs.getInt("id")));
+							sdao.getSongsByDisc(rs.getInt("id")));
 					resultado.add(d);
 				}
 
@@ -115,11 +117,13 @@ public class DiscDAO extends Disc implements IDisc {
 				ps.setInt(1, discid);
 
 				rs = ps.executeQuery();
+				
+				SongDAO sdao=new SongDAO();
 
 				if (rs.next()) {
 					disc = new Disc(rs.getInt("id"), rs.getInt("artistid"), rs.getString("name"),
 							rs.getInt("publish_date"), rs.getString("photo"), rs.getInt("n_reproductions"),
-							new SongDAO().getSongsByDisc(rs.getInt("id")));
+							sdao.getSongsByDisc(rs.getInt("id")));
 				}
 
 				ps.close();
@@ -148,11 +152,13 @@ public class DiscDAO extends Disc implements IDisc {
 				ps.setInt(1, artistid);
 				
 				rs = ps.executeQuery();
+				
+				SongDAO sdao=new SongDAO();
 
 				while (rs.next()) {
 					Disc d = new Disc(rs.getInt("id"), rs.getInt("artistid"), rs.getString("name"),
 							rs.getInt("publish_date"), rs.getString("photo"), rs.getInt("n_reproductions"), 
-							new SongDAO().getSongsByDisc(rs.getInt("id")));
+							sdao.getSongsByDisc(rs.getInt("id")));
 					resultado.add(d);
 				}
 

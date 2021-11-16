@@ -83,10 +83,12 @@ public class CommentDAO extends Comment implements IComment {
 				ps.setInt(1, commentid);
 
 				rs = ps.executeQuery();
+				
+				ListDAO ldao=new ListDAO();
 
 				if (rs.next()) {
 					comment = new Comment(rs.getInt("id"), rs.getInt("userid"), rs.getInt("listid"), rs.getDate("date"), rs.getString("text"),
-							new ListDAO().getListById(rs.getInt("listid")));
+							ldao.getListById(rs.getInt("listid")));
 				}
 
 				ps.close();
@@ -115,10 +117,12 @@ public class CommentDAO extends Comment implements IComment {
 				ps.setInt(1, userid);
 				
 				rs = ps.executeQuery();
+				
+				ListDAO ldao=new ListDAO();
 
 				while (rs.next()) {
 					Comment a=new Comment(rs.getInt("id"), rs.getInt("userid"), rs.getInt("listid"), rs.getDate("date"), rs.getString("text"),
-							new ListDAO().getListById(rs.getInt("listid")));
+							ldao.getListById(rs.getInt("listid")));
 					resultado.add(a);
 				}
 				
@@ -147,10 +151,12 @@ public class CommentDAO extends Comment implements IComment {
 				ps.setInt(1, listid);
 				
 				rs = ps.executeQuery();
+				
+				ListDAO ldao=new ListDAO();
 
 				while (rs.next()) {
 					Comment a=new Comment(rs.getInt("id"), rs.getInt("userid"), rs.getInt("listid"), rs.getDate("date"), rs.getString("text"),
-							new ListDAO().getListById(rs.getInt("listid")));
+							ldao.getListById(rs.getInt("listid")));
 					resultado.add(a);
 				}
 				

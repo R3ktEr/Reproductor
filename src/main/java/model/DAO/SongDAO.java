@@ -15,11 +15,11 @@ import utils.DBConection;
 public class SongDAO extends Song implements ISong {
 
 	private static final String GETALLSONGS = "SELECT * FROM song";
-	private static final String INSERTSONG = "INSERT INTO song (discid, genreid, name, duration) VALUES (?,?,?,?)";
+	private static final String INSERTSONG = "INSERT INTO song (discid, genreid, name, duration, n_reproductions) VALUES (?,?,?,?,?)";
 	private static final String GETSONGBYID = "SELECT * FROM song WHERE id=?";
 	private static final String GETSONGSBYDISC = "SELECT * FROM song WHERE discid=?";
 	private static final String GETSONGSBYGENRE = "SELECT * FROM song WHERE genreid=?";
-	private static final String UPDATESONGBYID = "UPDATE song SET discid=?, genreid=?, name=?, duration=? WHERE id=?";
+	private static final String UPDATESONGBYID = "UPDATE song SET discid=?, genreid=?, name=?, duration=?, n_reproductions=? WHERE id=?";
 	private static final String DELETESONGBYID = "DELETE FROM song WHERE id=?";
 
 	private Connection con = null;
@@ -46,7 +46,8 @@ public class SongDAO extends Song implements ISong {
 					ps.setInt(1, this.discid);
 					ps.setInt(2, this.genreid);
 					ps.setString(3, this.name);
-					ps.setInt(3, this.duration);
+					ps.setInt(4, this.duration);
+					ps.setInt(5, this.n_reproductions);
 
 					ps.executeUpdate();
 					// Solo lo puedes ejecutar si has puesto RETURN_GENERATED_KEYS
@@ -85,7 +86,7 @@ public class SongDAO extends Song implements ISong {
 
 				while (rs.next()) {
 					Song s = new Song(rs.getInt("id"), rs.getInt("discid"), rs.getInt("genreid"), rs.getString("name"),
-							rs.getInt("duration"));
+							rs.getInt("duration"), rs.getInt("n_reproductions"));
 					resultado.add(s);
 				}
 
@@ -117,7 +118,7 @@ public class SongDAO extends Song implements ISong {
 
 				if (rs.next()) {
 					song = new Song(rs.getInt("id"), rs.getInt("discid"), rs.getInt("genreid"), rs.getString("name"),
-							rs.getInt("duration"));
+							rs.getInt("duration"), rs.getInt("n_reproductions"));
 				}
 
 				ps.close();
@@ -149,7 +150,7 @@ public class SongDAO extends Song implements ISong {
 
 				while (rs.next()) {
 					Song s = new Song(rs.getInt("id"), rs.getInt("discid"), rs.getInt("genreid"), rs.getString("name"),
-							rs.getInt("duration"));
+							rs.getInt("duration"), rs.getInt("n_reproductions"));
 					resultado.add(s);
 				}
 
@@ -164,6 +165,7 @@ public class SongDAO extends Song implements ISong {
 		return resultado;
 	}
 	
+	@Override
 	public List<Song> getSongsByGenre(int genreid) {
 		List<Song> resultado = new ArrayList<Song>();
 
@@ -180,7 +182,7 @@ public class SongDAO extends Song implements ISong {
 
 				while (rs.next()) {
 					Song s = new Song(rs.getInt("id"), rs.getInt("discid"), rs.getInt("genreid"), rs.getString("name"),
-							rs.getInt("duration"));
+							rs.getInt("duration"), rs.getInt("n_reproductions"));
 					resultado.add(s);
 				}
 
@@ -207,7 +209,8 @@ public class SongDAO extends Song implements ISong {
 				ps.setInt(2, this.genreid);
 				ps.setString(3, this.name);
 				ps.setInt(4, this.duration);
-				ps.setFloat(5, this.id);
+				ps.setInt(5, this.n_reproductions);
+				ps.setFloat(6, this.id);
 				
 				ps.executeUpdate();
 				ps.close();

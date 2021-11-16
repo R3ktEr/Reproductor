@@ -77,9 +77,11 @@ public class GenreDAO extends Genre implements IGenre {
 			try {
 				ps = con.prepareStatement(GETALLGENRES);
 				rs = ps.executeQuery();
+				
+				SongDAO sdao=new SongDAO();
 
 				while (rs.next()) {
-					Genre g = new Genre(rs.getInt("id"), rs.getString("name"), new SongDAO().getSongsByGenre(rs.getInt("id")));
+					Genre g = new Genre(rs.getInt("id"), rs.getString("name"), sdao.getSongsByGenre(rs.getInt("id")));
 					resultado.add(g);
 				}
 
@@ -108,9 +110,11 @@ public class GenreDAO extends Genre implements IGenre {
 				ps.setInt(1, genreid);
 
 				rs = ps.executeQuery();
+				
+				SongDAO sdao=new SongDAO();
 
 				if (rs.next()) {
-					genre = new Genre(rs.getInt("id"), rs.getString("name"), new SongDAO().getSongsByGenre(rs.getInt("id")));
+					genre = new Genre(rs.getInt("id"), rs.getString("name"), sdao.getSongsByGenre(rs.getInt("id")));
 				}
 
 				ps.close();

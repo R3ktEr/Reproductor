@@ -11,8 +11,11 @@ public class User {
 	protected java.util.List<Subscription> userListsSubscriptions;
 	protected java.util.List<Comment> userComments;
 	
+	private String password;
+	
 	public User() {
 		this(-1,"","","", new ArrayList<List>(), new ArrayList<Subscription>(), new ArrayList<Comment>());
+		this.password="";
 	}
 	
 	public User(int id, String name, String photo, String mail, java.util.List<List> userCreatedLists, 
@@ -33,6 +36,12 @@ public class User {
 		this.mail = mail;
 	}
 	
+	public User(String name, String password) {
+		super();
+		this.name = name;
+		this.password = password;
+	}
+
 	public User(User u) {
 		this.id = u.id;
 		this.name = u.name;
@@ -94,6 +103,14 @@ public class User {
 
 	public void setUserComments(java.util.List<Comment> userComments) {
 		this.userComments = userComments;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

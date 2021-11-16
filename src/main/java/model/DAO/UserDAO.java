@@ -82,11 +82,15 @@ public class UserDAO extends User implements IUser {
 				ps.setInt(1, userid);
 
 				rs = ps.executeQuery();
+				
+				ListDAO ldao=new ListDAO();
+				CommentDAO cdao=new CommentDAO();
+				SubscriptionDAO sdao=new SubscriptionDAO();
 
 				if (rs.next()) {
 					user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("photo"), rs.getString("mail"),
-							new ListDAO().getListsByUser(rs.getInt("id")), new SubscriptionDAO().getSubscriptionsByUser(rs.getInt("id")),
-							new CommentDAO().getAllUserComments(rs.getInt("id")));
+							ldao.getListsByUser(rs.getInt("id")), sdao.getSubscriptionsByUser(rs.getInt("id")),
+							cdao.getAllUserComments(rs.getInt("id")));
 				}
 
 				ps.close();
@@ -112,11 +116,15 @@ public class UserDAO extends User implements IUser {
 			try {
 				ps = con.prepareStatement(GETALLUSERS);
 				rs = ps.executeQuery();
+				
+				ListDAO ldao=new ListDAO();
+				CommentDAO cdao=new CommentDAO();
+				SubscriptionDAO sdao=new SubscriptionDAO();
 
 				while (rs.next()) {
 					User u=new User(rs.getInt("id"), rs.getString("name"), rs.getString("photo"), rs.getString("mail"),
-							new ListDAO().getListsByUser(rs.getInt("id")), new SubscriptionDAO().getSubscriptionsByUser(rs.getInt("id")),
-							new CommentDAO().getAllUserComments(rs.getInt("id")));
+							ldao.getListsByUser(rs.getInt("id")), sdao.getSubscriptionsByUser(rs.getInt("id")),
+							cdao.getAllUserComments(rs.getInt("id")));
 					usersList.add(u);
 				}
 				

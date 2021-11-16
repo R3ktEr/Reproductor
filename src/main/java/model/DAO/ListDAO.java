@@ -80,10 +80,12 @@ public class ListDAO extends List implements IList {
 			try {
 				ps = con.prepareStatement(GETALLLISTS);
 				rs = ps.executeQuery();
+				
+				Songs_ListDAO sldao=new Songs_ListDAO();
 
 				while (rs.next()) {
 					List l = new List(rs.getInt("id"), rs.getInt("userid"), rs.getString("name"),
-							rs.getString("description"), rs.getInt("n_subscribers"), new Songs_ListDAO().getSongsFromList(rs.getInt("id")));
+							rs.getString("description"), rs.getInt("n_subscribers"), sldao.getSongsFromList(rs.getInt("id")));
 					resultado.add(l);
 				}
 
@@ -112,10 +114,12 @@ public class ListDAO extends List implements IList {
 				ps.setInt(1, listid);
 
 				rs = ps.executeQuery();
+				
+				Songs_ListDAO sldao=new Songs_ListDAO();
 
 				if (rs.next()) {
 					list = new List(rs.getInt("id"), rs.getInt("userid"), rs.getString("name"),
-							rs.getString("description"), rs.getInt("n_subscribers"), new Songs_ListDAO().getSongsFromList(rs.getInt("id")));
+							rs.getString("description"), rs.getInt("n_subscribers"), sldao.getSongsFromList(rs.getInt("id")));
 				}
 
 				ps.close();
@@ -144,10 +148,12 @@ public class ListDAO extends List implements IList {
 				ps.setInt(1, userid);
 				
 				rs = ps.executeQuery();
+				
+				Songs_ListDAO sldao=new Songs_ListDAO();
 
 				while (rs.next()) {
 					List l = new List(rs.getInt("id"), rs.getInt("userid"), rs.getString("name"),
-							rs.getString("description"), rs.getInt("n_subscribers"), new Songs_ListDAO().getSongsFromList(rs.getInt("id")));
+							rs.getString("description"), rs.getInt("n_subscribers"), sldao.getSongsFromList(rs.getInt("id")));
 					resultado.add(l);
 				}
 

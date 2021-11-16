@@ -16,7 +16,7 @@ public class SubscriptionDAO extends Subscription implements ISubscription{
 	private static final String GETALLSUBSCRIPTIONS = "SELECT * FROM subcription";
 	private static final String GETSUBCRIPTIONSBYUSER = "SELECT * FROM subscription WHERE userid=?";
 	private static final String INSERTSUBSCRIPTION = "INSERT INTO subscription (userid, listid) VALUES (?,?)";
-	private static final String DELETESUBSCRIPTION = "DELETE FROM subscription WHERE id=?";
+	private static final String DELETESUBSCRIPTION = "DELETE FROM subscription WHERE userid=? AND listid=?";
 
 	private Connection con = null;
 
@@ -81,10 +81,12 @@ public class SubscriptionDAO extends Subscription implements ISubscription{
 			try {
 				ps = con.prepareStatement(GETALLSUBSCRIPTIONS);
 				rs = ps.executeQuery();
+				
+				ListDAO ldao=new ListDAO();
 
 				while (rs.next()) {
 					Subscription s=new Subscription(rs.getInt("id"), rs.getInt("userid"), rs.getInt("listid"), 
-							new ListDAO().getListById(rs.getInt("listid")));
+							ldao.getListById(rs.getInt("listid")));
 					subscriptions.add(s);
 				}
 				
@@ -113,10 +115,12 @@ public class SubscriptionDAO extends Subscription implements ISubscription{
 				ps.setInt(1, userid);
 				
 				rs = ps.executeQuery();
+				
+				ListDAO ldao=new ListDAO();
 
 				while (rs.next()) {
 					Subscription s = new Subscription(rs.getInt("id"), rs.getInt("userid"), rs.getInt("listid"), 
-							new ListDAO().getListById(rs.getInt("listid")));
+							ldao.getListById(rs.getInt("listid")));
 					userSubscriptions.add(s);
 				}
 				
@@ -132,13 +136,14 @@ public class SubscriptionDAO extends Subscription implements ISubscription{
 	}
 
 	@Override
-	public boolean deleteSubscription() {
+	public boolean deleteSubscription(int userid, int listid) {
 		con = DBConection.getConection();
 		if (con != null) {
 			PreparedStatement ps=null;
 			try {
 				ps = con.prepareStatement(DELETESUBSCRIPTION);
-				ps.setInt(1, this.id);
+				ps.setInt(1, userid);
+				ps.setInt(2, listid);
 				ps.executeUpdate();
 				this.id=-1;
 				ps.close();
